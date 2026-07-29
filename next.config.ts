@@ -2,16 +2,17 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    minimumCacheTTL: 2678400,
+    // Skip the image optimizer in local dev to avoid timeout errors.
+    // On Vercel production, the edge optimizer handles this instantly.
+    unoptimized: process.env.NODE_ENV === "development",
     remotePatterns: [
-      { protocol: "https", hostname: "**.public.blob.vercel-storage.com" },
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "**.vercel.app" },
-      { protocol: "https", hostname: "example.com" },
       {
         protocol: "https",
-        hostname: "**.supabase.co",
-        pathname: "/storage/v1/object/public/**",
+        hostname: "ysfmhibv0eaat3op.public.blob.vercel-storage.com",
+      },
+      {
+        protocol: "https",
+        hostname: "d3rarb6cqqqm6p.cloudfront.net",
       },
     ],
   },

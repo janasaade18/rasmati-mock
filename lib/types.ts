@@ -46,3 +46,11 @@ export interface Product {
       };
     };
   }
+
+  /* ---------- Cart (frontend-only, persisted to localStorage) ---------- */
+  export interface CartItem {
+    id: string;
+    product: Product;
+    quantity: number;
+    addedAt: string;
+  }
