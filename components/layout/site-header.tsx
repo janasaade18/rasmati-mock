@@ -92,28 +92,25 @@ export function SiteHeader() {
                     )}
                   </Link>
                 )}
-                {isAuthenticated ? (
-                  <button
-                    onClick={openCart}
-                    aria-label="Open your wall"
-                    className="relative transition-opacity hover:opacity-60"
-                  >
-                    <ShoppingBag className="size-[1.1rem]" strokeWidth={1.4} />
-                    {itemCount > 0 && (
-                      <span className="absolute -right-2 -top-2 grid size-4 place-items-center rounded-full bg-espresso text-[0.55rem] text-ivory">
-                        {itemCount}
-                      </span>
-                    )}
-                  </button>
-                ) : (
-                  <Link
-                    href="/account"
-                    aria-label="Sign in or create an account"
-                    className="transition-opacity hover:opacity-60"
-                  >
-                    <UserRound className="size-[1.1rem]" strokeWidth={1.4} />
-                  </Link>
-                )}
+                <Link
+                  href={isAuthenticated ? "/account" : "/sign-in"}
+                  aria-label={isAuthenticated ? "My account" : "Sign in or create an account"}
+                  className="transition-opacity hover:opacity-60"
+                >
+                  <UserRound className="size-[1.1rem]" strokeWidth={1.4} />
+                </Link>
+                <button
+                  onClick={openCart}
+                  aria-label="Open your wall"
+                  className="relative transition-opacity hover:opacity-60"
+                >
+                  <ShoppingBag className="size-[1.1rem]" strokeWidth={1.4} />
+                  {itemCount > 0 && (
+                    <span className="absolute -right-2 -top-2 grid size-4 place-items-center rounded-full bg-espresso text-[0.55rem] text-ivory">
+                      {itemCount}
+                    </span>
+                  )}
+                </button>
               </div>
             </div>
           </div>

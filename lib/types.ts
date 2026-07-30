@@ -54,3 +54,24 @@ export interface Product {
     quantity: number;
     addedAt: string;
   }
+  export interface PaintingItem {
+  id: string;
+  url: string;
+  type: string;
+  order: number;
+  alt?: string;
+  metadata?: {
+    title?: string;
+    price?: number;
+    currency?: string;
+    medium?: string;
+    dimensions?: string;
+    available?: boolean;
+  };
+}
+
+export interface CartLine {
+  id: string; // = painting.id
+  painting: PaintingItem;
+  quantity: number;
+}

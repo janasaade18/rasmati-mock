@@ -386,3 +386,39 @@ export async function getBackendProducts(
   const json = (await res.json()) as ProductsResponse;
   return json.data;
 }
+
+
+export interface CreateOrderPayload {
+  customer: { name: string; phone: string };
+  items: { product_name: string; quantity: number; unit_price: number; output_item_id: string }[];
+  delivery_method: "delivery";
+  payment_method: "cod";
+  notes?: string;
+}
+
+export interface CreateOrderResponse {
+  success: boolean;
+  data: {
+    orderNumber: string;
+    accessToken: string;
+    [key: string]: unknown;
+  };
+}
+
+export async function createOrder(payload: CreateOrderPayload): Promise<CreateOrderResponse> {
+  const res = await fetch(`${API_URL}/api/orders`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error(`Failed to create order: ${res.status}`);
+  return res.json();
+}
+
+export async function trackOrder(orderNumber: string) {
+  const res = await fetch(`${API_URL}/api/orders?order_number=${encodeURIComponent(orderNumber)}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) return null;
+  return res.json();
+}
